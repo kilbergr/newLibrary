@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+<form action="/books/<%=book.id%>?_method=PUT" method="POST">
+	<label for="">book:
+		<input type="text" name="book[title]" value="<%= book.title %>">
+	</label>
+	<label for="">Relatives:
+		<input type="text" name="book[author]" value="<%=book.author  %>">
+	</label>
+	<label for="">Friends:
+		<input type="text" name="book[year]" value="<%= book.year %>">
+	</label>
+	<input type="submit" value="Edit Book">
+</form>
+<a href="/books"><button>Return Home</button></a>
+<% include ../partials/footer %>

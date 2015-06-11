@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+<h2>Add a Book</h2>
+<form action="/books" method="POST">
+	<label for="title">Title:
+		<input type="text" name="book[title]">
+	</label>
+	<label for="author">Author:
+		<input type="text" name="book[author]">
+	</label>
+	<label for="year">Publication Year:
+		<input type="text" name="book[year]">
+	</label>
+	<input type="submit" value="Add new book">
+</form>
+<a href="/books"><button>Return Home</button></a>
+<a href="/books/search"><button>Find A Book</button></a>
+<% include ../partials/footer %>
