@@ -25,7 +25,10 @@
 			<% } else if(!(book.saleInfo.listPrice)){ %>
 			Not listed
 			<% } %></td>			
-			<td><form action="/books" method="POST"><input class="sub" type="submit" value="Add"></form></td>
+			<td><form action="/books" method="POST"><input class="sub" type="submit" value="Add">
+			<input type="hidden" name="book[title]" value="<%= book.volumeInfo.title %>">
+			<input type="hidden" name="book[author]" value="<%= book.volumeInfo.authors %>">
+			<input type="hidden" name="book[year]" value="<%= book.volumeInfo.publishedDate %>"></form></td>
 		</tr>
 	<%  })%>
 	</tbody>
