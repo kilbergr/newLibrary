@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-	<% animals.forEach(function(book){%>
+	<% books.forEach(function(book){%>
 		<tr>
 			<td> <a href="/books/<%= book.id %>"><%= book.title %></a></td>
 			<td><%= book.author %></td>
@@ -25,5 +25,5 @@
 	</tbody>
 </table>
 <a href="/books/new"><button>Add A Book</button></a>
-<a href="/books/search"><button>Find A Book</button></a>
+<a href="/"><button>Find A Book</button></a>
 <% include ../partials/footer %>

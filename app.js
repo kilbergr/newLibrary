@@ -3,7 +3,8 @@ app = express(),
 db = require('./models'),
 methodOverride = require('method-override'),
 bodyParser = require('body-parser'),
-morgan = require('morgan');
+morgan = require('morgan'),
+request = require('request');
 
 //set middleware
 app.set('view engine', 'ejs');
@@ -14,12 +15,10 @@ app.use(methodOverride('_method'));
 
 //Routes
 
-app.get('/', function(req, res){
-	res.render('books/search');
-});
 
+//homepage
 app.get('/books', function(req, res){
-	db.Animal.find({}, function(err, books){
+	db.Book.find({}, function(err, books){
 		if(err){
 			res.render('errors/404')
 		}
@@ -34,7 +33,7 @@ app.get('/books/new', function(req, res){
 
 //create
 app.post('/books', function(req, res){
-	db.Animal.create(req.body.book, function(err){
+	db.Book.create(req.body.book, function(err){
 		if(err){
 			res.render('errors/404')
 		}
@@ -85,6 +84,27 @@ app.delete('/books/:id', function(req, res){
 		else res.redirect('/books')
 	})
 })
+
+
+//search
+app.get('/', function(req, res){
+	res.render('books/search');
+});
+
+app.get("/searchresults", function(req, res){
+	var choice=encodeURIComponent(req.query.q);
+	var url = 'https://www.googleapis.com/books/v1/volumes?q=' + choice;
+	request(url, function (error, response, body) {
+	  if (error) {
+	    console.log("Error!  Request failed - " + error);
+	  } 
+	  else if (!error && response.statusCode === 200) {
+	    bookData = JSON.parse(body).items;
+	    response.render('books/searchresults', {bookData:bookData})
+	  }
+	});
+})
+
 
 //start server
 app.listen(8080, function(){

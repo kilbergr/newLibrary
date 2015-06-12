@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<table>
+	<thead>
+		<th>Title</th>
+		<th>Author</th>
+		<th>Year Published</th>
+		<th>Average Rating</th>
+		<th>ISBN/Other Identifier</th>
+		<th>List Price</th>
+		<th>Select?</th>
+	</thead>
+	<tbody>
+		<% bookData.forEach(function(book){ %>
+		<tr>
+			<td><%=book.volumeInfo.title%></td>
+			<td><%=book.volumeInfo.authors%></td>
+			<td><%=book.volumeInfo.publishedDate%></td>
+			<td><%=book.volumeInfo.averageRating%></td>
+			<td><%=book.volumeInfo.industryIdentifiers.identifier%></td>
+			<td><%=book.saleInfo.listPrice.amount%></td>
+			<td><a href="<%=book.volumeInfo.buyLink%>">Add</td>
+		</tr>
+
+	<%  })%>
+	</tbody>
+</table>
+<a href="/books"><button>Return Home</button></a>
+
+<% include ../partials/footer %>

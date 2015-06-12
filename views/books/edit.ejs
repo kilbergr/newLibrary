@@ -1,12 +1,12 @@
 <% include ../partials/header %>
 <form action="/books/<%=book.id%>?_method=PUT" method="POST">
-	<label for="">book:
+	<label for="">Title:
 		<input type="text" name="book[title]" value="<%= book.title %>">
 	</label>
-	<label for="">Relatives:
+	<label for="">Author:
 		<input type="text" name="book[author]" value="<%=book.author  %>">
 	</label>
-	<label for="">Friends:
+	<label for="">Publication Year:
 		<input type="text" name="book[year]" value="<%= book.year %>">
 	</label>
 	<input type="submit" value="Edit Book">
