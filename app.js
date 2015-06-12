@@ -15,7 +15,6 @@ app.use(methodOverride('_method'));
 
 //Routes
 
-
 //homepage
 app.get('/books', function(req, res){
 	db.Book.find({}, function(err, books){

@@ -1,29 +1,37 @@
 <% include ../partials/header %>
+<div class="tableStyle" >
 <table>
-	<thead>
-		<th>Title</th>
-		<th>Author</th>
-		<th>Year Published</th>
-		<th>Average Rating</th>
-		<th>ISBN/Other Identifier</th>
-		<th>List Price</th>
-		<th>Select?</th>
-	</thead>
 	<tbody>
+	<tr>
+		<td>Title</td>
+		<td>Author</td>
+		<td>Year Published</td>
+		<td>Average Rating</td>
+		<td>ISBN/Other Identifier</td>
+		<td>List Price</td>
+		<td>Select?</td>
+		</tr>
 		<% bookData.forEach(function(book){ %>
 		<tr>
 			<td><%=book.volumeInfo.title%></td>
 			<td><%=book.volumeInfo.authors%></td>
 			<td><%=book.volumeInfo.publishedDate%></td>
 			<td><%=book.volumeInfo.averageRating%></td>
-			<td><%=book.volumeInfo.industryIdentifiers.identifier%></td>
-			
-			<td><a href="<%=book.volumeInfo.buyLink%>">Add</td>
+			<td>
+			<%= book.volumeInfo.industryIdentifiers[0].identifier%>
+			</td>
+			<td><% if(book.saleInfo.listPrice) {%>
+			<%= book.saleInfo.listPrice.amount%>
+			<% } else if(!(book.saleInfo.listPrice)){ %>
+			Not listed
+			<% } %></td>			
+			<td><form action="/books" method="POST"><input class="sub" type="submit" value="Add"></form></td>
 		</tr>
 
 	<%  })%>
 	</tbody>
 </table>
+</div>
 <a href="/books"><button>Return Home</button></a>
 
 <% include ../partials/footer %>
