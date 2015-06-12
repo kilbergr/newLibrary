@@ -11,7 +11,7 @@
 		<td>List Price</td>
 		<td>Select?</td>
 		</tr>
-		<% bookData.forEach(function(book){ %>
+		<% books.forEach(function(book){ %>
 		<tr>
 			<td><%=book.volumeInfo.title%></td>
 			<td><%=book.volumeInfo.authors%></td>
@@ -27,7 +27,6 @@
 			<% } %></td>			
 			<td><form action="/books" method="POST"><input class="sub" type="submit" value="Add"></form></td>
 		</tr>
-
 	<%  })%>
 	</tbody>
 </table>

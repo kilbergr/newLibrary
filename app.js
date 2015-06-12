@@ -16,6 +16,8 @@ app.use(methodOverride('_method'));
 //Routes
 
 //homepage
+
+//need to have this refer to the books object that includes the selected books from the searchresults page
 app.get('/books', function(req, res){
 	db.Book.find({}, function(err, books){
 		if(err){
@@ -31,6 +33,7 @@ app.get('/books/new', function(req, res){
 });
 
 //create
+//need to change this so that I'm not getting the input from the form but instead form the text in the searchresults page.
 app.post('/books', function(req, res){
 	db.Book.create(req.body.book, function(err){
 		if(err){
@@ -47,6 +50,7 @@ app.get('/', function(req, res){
 	res.render('books/search');
 });
 
+//results
 app.get("/books/searchresults", function(req, res){
 	var choice=encodeURIComponent(req.query.search);
 	var url = 'https://www.googleapis.com/books/v1/volumes?q=' + choice;
@@ -55,8 +59,8 @@ app.get("/books/searchresults", function(req, res){
 	    console.log("Error!  Request failed - " + error);
 	  } 
 	  else if (!error && response.statusCode === 200) {
-	    bookData = JSON.parse(body).items;
-	    res.render('books/searchresults', {bookData:bookData})
+	    books = JSON.parse(body).items;
+	    res.render('books/searchresults', {books:books})
 	  }
 	});
 })
