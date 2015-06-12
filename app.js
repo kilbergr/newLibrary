@@ -43,6 +43,25 @@ app.post('/books', function(req, res){
 	})
 })
 
+//search
+app.get('/', function(req, res){
+	res.render('books/search');
+});
+
+app.get("/books/searchresults", function(req, res){
+	var choice=encodeURIComponent(req.query.search);
+	var url = 'https://www.googleapis.com/books/v1/volumes?q=' + choice;
+	request(url, function (error, response, body) {
+	  if (error) {
+	    console.log("Error!  Request failed - " + error);
+	  } 
+	  else if (!error && response.statusCode === 200) {
+	    bookData = JSON.parse(body).items;
+	    res.render('books/searchresults', {bookData:bookData})
+	  }
+	});
+})
+
 //show
 app.get('/books/:id', function(req, res){
 	db.Book.findById(req.params.id, function(err, book){
@@ -86,24 +105,7 @@ app.delete('/books/:id', function(req, res){
 })
 
 
-//search
-app.get('/', function(req, res){
-	res.render('books/search');
-});
 
-app.get("/searchresults", function(req, res){
-	var choice=encodeURIComponent(req.query.q);
-	var url = 'https://www.googleapis.com/books/v1/volumes?q=' + choice;
-	request(url, function (error, response, body) {
-	  if (error) {
-	    console.log("Error!  Request failed - " + error);
-	  } 
-	  else if (!error && response.statusCode === 200) {
-	    bookData = JSON.parse(body).items;
-	    response.render('books/searchresults', {bookData:bookData})
-	  }
-	});
-})
 
 
 //start server
